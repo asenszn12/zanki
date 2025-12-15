@@ -18,7 +18,7 @@
     "next": "^16.0.10",
     "prettier": "^3.7.1",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
     "tailwind-merge": "^3.4.0",
     "tree": "^0.1.3"
   },
