@@ -13,7 +13,10 @@ export default function DataEntryPage() {
   const [msg, setMsg] = useState("");
 
   const [pdfFile, setPdfFile] = useState<File | null>(null);
+<<<<<<< HEAD
   const [pdfMsg, setPdfMsg] = useState("");
+=======
+>>>>>>> ae5cc0d (feat: add pdf upload functionality)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
