@@ -52,10 +52,12 @@ export default function UpdatePasswordPage() {
 
   if (success) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background p-4 text-foreground">
-        <div className="w-full max-w-md space-y-4 rounded-lg border border-border bg-card p-6 text-center shadow-sm">
-          <h2 className="text-2xl font-semibold">Password Updated</h2>
-          <p className="text-muted-foreground">
+      <div className="flex min-h-screen items-center justify-center bg-[#09090b] p-4">
+        <div className="w-full max-w-md space-y-4 rounded-lg bg-zinc-900 p-6 text-center">
+          <h2 className="text-2xl font-semibold text-white">
+            Password Updated
+          </h2>
+          <p className="text-zinc-400">
             Your password has been successfully updated. Redirecting you to the
             dashboard...
           </p>
@@ -65,14 +67,16 @@ export default function UpdatePasswordPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4 text-foreground">
+    <div className="flex min-h-screen items-center justify-center bg-[#09090b] p-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md space-y-6 rounded-lg border border-border bg-card p-6 shadow-sm"
+        className="w-full max-w-md space-y-6 rounded-lg bg-zinc-900 p-6"
       >
         <div className="space-y-2 text-center">
-          <h2 className="text-2xl font-semibold">Set New Password</h2>
-          <p className="text-muted-foreground">Enter your new password below</p>
+          <h2 className="text-2xl font-semibold text-white">
+            Set New Password
+          </h2>
+          <p className="text-zinc-400">Enter your new password below</p>
         </div>
 
         {error && (

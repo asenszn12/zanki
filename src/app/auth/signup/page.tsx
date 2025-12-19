@@ -53,17 +53,16 @@ export default function SignupPage() {
         </div>
 
         {success ? (
-          <div className="p-4 text-center border border-green-500/50 bg-green-500/10 rounded-md">
-            <h3 className="text-sm font-medium text-green-500">
+          <div className="p-4 text-center border border-green-900/50 bg-green-900/20 rounded-md">
+            <h3 className="text-sm font-medium text-green-400">
               Check your email
             </h3>
-            <p className="mt-1 text-xs text-muted-foreground">
+            <p className="mt-1 text-xs text-zinc-400">
               We&apos;ve sent you a confirmation link. Be sure to check your
               spam folder.
             </p>
             <Button
-              variant="outline"
-              className="mt-4 w-full"
+              className="mt-4 w-full bg-zinc-800 hover:bg-zinc-700 text-white"
               onClick={() => router.push("/auth/login")}
             >
               Back to Login
@@ -79,7 +78,9 @@ export default function SignupPage() {
 
             <form className="space-y-4" onSubmit={handleSignup}>
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-zinc-300">
+                  Email
+                </Label>
                 <Input
                   id="email"
                   type="email"
@@ -92,7 +93,9 @@ export default function SignupPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-zinc-300">
+                  Password
+                </Label>
                 <Input
                   id="password"
                   type="password"
@@ -111,7 +114,10 @@ export default function SignupPage() {
 
             <div className="text-center text-sm text-muted-foreground">
               Already have an account?{" "}
-              <Link href="/auth/login" className="text-primary hover:underline">
+              <Link
+                href="/auth/login"
+                className="text-purple-500 hover:underline"
+              >
                 Login
               </Link>
             </div>
