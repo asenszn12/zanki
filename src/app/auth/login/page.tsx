@@ -56,9 +56,7 @@ export default function LoginPage() {
 
         <form className="space-y-4" onSubmit={handleEmailLogin}>
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-zinc-300">
-              Email
-            </Label>
+            <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="email"
@@ -72,9 +70,7 @@ export default function LoginPage() {
 
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="password" className="text-zinc-300">
-                Password
-              </Label>
+              <Label htmlFor="password">Password</Label>
               <Link
                 href="/auth/forgot"
                 className="text-sm font-medium text-primary hover:text-primary/80 hover:underline"
