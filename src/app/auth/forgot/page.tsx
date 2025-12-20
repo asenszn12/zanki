@@ -40,24 +40,24 @@ export default function ForgotPasswordPage() {
           <h1 className="text-2xl font-semibold tracking-tight">
             Reset Password
           </h1>
-          <p className="text-sm text-zinc-400">
+          <p className="text-sm text-muted-foreground">
             Enter your email address and we&apos;ll send you a link to reset
             your password
           </p>
         </div>
 
         {success ? (
-          <div className="p-4 text-center border border-green-900/50 bg-green-900/20 rounded-md">
-            <h3 className="text-sm font-medium text-green-400">
+          <div className="p-4 text-center border border-green-500/50 bg-green-500/10 rounded-md">
+            <h3 className="text-sm font-medium text-green-500">
               Check your email
             </h3>
-            <p className="mt-1 text-xs text-zinc-400">
+            <p className="mt-1 text-xs text-muted-foreground">
               We&apos;ve sent a password reset link to <strong>{email}</strong>.
             </p>
             <div className="mt-4">
               <Link
                 href="/auth/login"
-                className="text-sm font-medium text-purple-500 hover:text-purple-400"
+                className="text-sm font-medium text-primary hover:text-primary/80 hover:underline"
               >
                 Back to Login
               </Link>
@@ -73,9 +73,7 @@ export default function ForgotPasswordPage() {
 
             <form className="space-y-4" onSubmit={handleReset}>
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-zinc-300">
-                  Email
-                </Label>
+                <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   type="email"
