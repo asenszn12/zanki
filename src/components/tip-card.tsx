@@ -43,11 +43,11 @@ export default function TipCard({ metrics }: TipCardProps) {
       if (data.tip) {
         setTip(data.tip);
         // Save to local storage
-        localStorage.setItem("dailyFinancialTip", data.tip);
-        localStorage.setItem(
-          "dailyFinancialTipDate",
-          new Date().toDateString(),
-        );
+        // localStorage.setItem("dailyFinancialTip", data.tip);
+        // localStorage.setItem(
+        //   "dailyFinancialTipDate",
+        //   new Date().toDateString(),
+        // );
       }
     } catch (err) {
       console.error(err);
