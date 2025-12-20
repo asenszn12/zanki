@@ -16,6 +16,7 @@ import {
 import { ModeToggle } from "@/components/mode-toggle";
 import SignOutButton from "@/components/ui/sign-out";
 import TestApiButton from "@/components/ui/database-button";
+import { Logo } from "./logo";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -26,7 +27,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             href="/"
             className="text-2xl font-semibold tracking-tight text-primary"
           >
-            Zanki
+            <Logo />
           </Link>
           <ModeToggle />
         </div>

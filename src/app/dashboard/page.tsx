@@ -184,12 +184,12 @@ export default function DashboardPage() {
               ) : (
                 <div className="flex h-[300px] flex-col items-center justify-center text-muted-foreground/40">
                   <DollarSign className="w-12 h-12 mb-4 opacity-20" />
-                  <p>No visualization data found.</p>
+                  <p>No data to visualise :(</p>
                   <Link
                     href="/dashboard/entry"
                     className="text-primary hover:underline mt-2 font-medium"
                   >
-                    Upload a bank statement
+                    Upload Data
                   </Link>
                 </div>
               )}

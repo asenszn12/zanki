@@ -245,7 +245,7 @@ export default function DataEntryPage() {
 
   return (
     <main className="flex-1 overflow-y-auto p-8">
-      <h1 className="text-xl font-semibold mb-6 text-foreground">Entry</h1>
+      <h1 className="text-xl font-semibold mb-6 text-foreground">Enter Transactions</h1>
 
       <div className="rounded-lg border border-border bg-card shadow-sm mb-8">
         <form onSubmit={handleSave} className="p-6">
