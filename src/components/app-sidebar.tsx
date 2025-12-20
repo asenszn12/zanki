@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Home, Upload, Bot, User, ReceiptText } from "lucide-react";
+import { Home, Upload, Bot, User, ReceiptText, Newspaper } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -70,6 +70,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           {/* <SidebarMenuItem className="mt-2">
                  <TestApiButton />
             </SidebarMenuItem> */}
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link href="/dashboard/news">
+                <Newspaper className="mr-2" />
+                <span>Finance News</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
 
