@@ -143,21 +143,7 @@ export default function DashboardPage() {
                         Upload a statement
                       </Link>
                     </div>
-                  )} */}
-
-                  <Sankey className="flexbox"
-                      width={700}
-                      height={400}
-                      data={temp}
-                      nodePadding={50}
-                      nodeWidth={15}
-                      margin={{ top: 20, bottom: 20, left: 20, right: 120 }}
-                      link={{ stroke: "#4ade80", strokeOpacity: 0.5 }}
-                      node={<SankeyNode />}
-                    >
-                      <Tooltip />
-                    </Sankey>
-
+                  )}
                 </div>
               </div>
             </div>
