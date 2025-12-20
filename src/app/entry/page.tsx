@@ -70,10 +70,11 @@ export default function DataEntryPage() {
       }
 
       const parseData = await parseRes.json();
-      const rawText = parseData.text; 
+      const rawText = parseData.text;
 
       setPdfMsg("PDF parsed! Analysing...");
 
+      // send raw pdf text to the parser
       const analyzeRes = await fetch(
         "https://bank-statement-parser-tp25t3-production.up.railway.app/analyze",
         {
@@ -103,7 +104,7 @@ export default function DataEntryPage() {
         links: data.sankey_data.links,
       };
 
-      // localStorage.setItem("sankeyData", JSON.stringify(sankeyData));
+      localStorage.setItem("sankeyData", JSON.stringify(sankeyData));
     } catch (err) {
       console.error(err);
       setPdfMsg("Error processing PDF.");
