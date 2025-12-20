@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Home, Upload, Bot, User } from "lucide-react"
+import { Home, Upload, Bot, User, ReceiptText } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -52,6 +52,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarMenuItem>
             <SidebarMenuItem>
                 <SidebarMenuButton asChild>
+                    <Link href="/dashboard/view">
+                        <ReceiptText className="mr-2" />
+                        <span>View Data</span>
+                    </Link>
+                </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+                <SidebarMenuButton asChild>
                     <Link href="/dashboard/chatbot">
                         <Bot className="mr-2" />
                         <span>AI Chatbot</span>
@@ -63,7 +71,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
-      
+
       <SidebarFooter className="border-t border-border/50 p-4">
         <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2 text-sm font-medium">
