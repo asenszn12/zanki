@@ -36,29 +36,31 @@ export default function ForgotPasswordPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12 text-foreground">
       <div className="w-full max-w-sm space-y-6">
-        
         <div className="space-y-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">
             Reset Password
           </h1>
           <p className="text-sm text-muted-foreground">
-            Enter your email address and we&apos;ll send you a link to reset your password
+            Enter your email address and we&apos;ll send you a link to reset
+            your password
           </p>
         </div>
 
         {success ? (
           <div className="p-4 text-center border border-green-500/50 bg-green-500/10 rounded-md">
-            <h3 className="text-sm font-medium text-green-500">Check your email</h3>
+            <h3 className="text-sm font-medium text-green-500">
+              Check your email
+            </h3>
             <p className="mt-1 text-xs text-muted-foreground">
               We&apos;ve sent a password reset link to <strong>{email}</strong>.
             </p>
             <div className="mt-4">
-               <Link 
-                 href="/auth/login"
-                 className="text-sm font-medium text-primary hover:text-primary/80 hover:underline"
-               >
-                 Back to Login
-               </Link>
+              <Link
+                href="/auth/login"
+                className="text-sm font-medium text-primary hover:text-primary/80 hover:underline"
+              >
+                Back to Login
+              </Link>
             </div>
           </div>
         ) : (
@@ -83,11 +85,7 @@ export default function ForgotPasswordPage() {
                 />
               </div>
 
-              <Button
-                type="submit"
-                disabled={isLoading}
-                className="w-full"
-              >
+              <Button type="submit" disabled={isLoading} className="w-full">
                 {isLoading && <Spinner className="mr-2 h-4 w-4 animate-spin" />}
                 Send Reset Link
               </Button>

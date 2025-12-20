@@ -43,7 +43,6 @@ export default function SignupPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12 text-foreground">
       <div className="w-full max-w-sm space-y-6">
-        
         <div className="space-y-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">
             Create an account
@@ -55,11 +54,14 @@ export default function SignupPage() {
 
         {success ? (
           <div className="p-4 text-center border border-green-500/50 bg-green-500/10 rounded-md">
-            <h3 className="text-sm font-medium text-green-500">Check your email</h3>
+            <h3 className="text-sm font-medium text-green-500">
+              Check your email
+            </h3>
             <p className="mt-1 text-xs text-muted-foreground">
-              We&apos;ve sent you a confirmation link. Be sure to check your spam folder.
+              We&apos;ve sent you a confirmation link. Be sure to check your
+              spam folder.
             </p>
-            <Button 
+            <Button
               variant="outline"
               className="mt-4 w-full"
               onClick={() => router.push("/auth/login")}
@@ -101,11 +103,7 @@ export default function SignupPage() {
                 />
               </div>
 
-              <Button
-                type="submit"
-                disabled={isLoading}
-                className="w-full"
-              >
+              <Button type="submit" disabled={isLoading} className="w-full">
                 {isLoading && <Spinner className="mr-2 h-4 w-4 animate-spin" />}
                 Sign Up
               </Button>

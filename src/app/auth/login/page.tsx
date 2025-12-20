@@ -32,9 +32,7 @@ export default function LoginPage() {
       router.push("/dashboard");
       router.refresh();
     } catch (error: any) {
-      setError(
-        error.error_description || error.message || "An error occurred"
-      );
+      setError(error.error_description || error.message || "An error occurred");
     } finally {
       setIsLoading(false);
     }
@@ -42,13 +40,9 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12 text-foreground">
-      
       <div className="w-full max-w-sm space-y-6">
-        
         <div className="space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            Login
-          </h1>
+          <h1 className="text-2xl font-semibold tracking-tight">Login</h1>
           <p className="text-sm text-muted-foreground">
             Enter your email below to login to your account
           </p>
@@ -94,11 +88,7 @@ export default function LoginPage() {
             />
           </div>
 
-          <Button
-            type="submit"
-            disabled={isLoading}
-            className="w-full"
-          >
+          <Button type="submit" disabled={isLoading} className="w-full">
             {isLoading && <Spinner className="mr-2 h-4 w-4 animate-spin" />}
             Sign In
           </Button>

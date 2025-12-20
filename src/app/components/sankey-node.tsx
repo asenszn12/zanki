@@ -18,8 +18,8 @@ export default function SankeyNode({
         y={y}
         width={width}
         height={height}
-        fill="var(--primary)" 
-        stroke="var(--primary)" 
+        fill="var(--primary)"
+        stroke="var(--primary)"
         strokeWidth={1}
         rx={3}
       />
@@ -31,7 +31,7 @@ export default function SankeyNode({
         y={y + height / 2}
         dominantBaseline="middle"
         fontSize={13}
-        fill="var(--foreground)" 
+        fill="var(--foreground)"
         fontWeight={500}
       >
         {payload.name}

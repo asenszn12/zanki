@@ -1,30 +1,30 @@
-'use client'
+"use client";
 
-import { useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { supabase } from '../../lib/supabaseClient'
+import { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { supabase } from "../../lib/supabaseClient";
 
 export default function CallbackPage() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const code = searchParams.get('code')
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const code = searchParams.get("code");
 
   useEffect(() => {
     const handleAuth = async () => {
       if (code) {
-        await supabase.auth.exchangeCodeForSession(code)
+        await supabase.auth.exchangeCodeForSession(code);
       }
       // Clean up the URL and redirect
-      window.history.replaceState({}, document.title, window.location.pathname)
-      router.replace('/dashboard')
-    }
+      window.history.replaceState({}, document.title, window.location.pathname);
+      router.replace("/dashboard");
+    };
 
-    handleAuth()
-  }, [code, router])
+    handleAuth();
+  }, [code, router]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background">
       <div className="text-foreground">Signing you in...</div>
     </div>
-  )
+  );
 }

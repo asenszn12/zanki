@@ -17,7 +17,9 @@ export default function DashboardPage() {
   // Check if User is Logined In
   useEffect(() => {
     const checkUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (!session) {
         router.push("/auth/login");
       } else {
@@ -123,7 +125,6 @@ export default function DashboardPage() {
           <div className="grid gap-6">
             <div className="rounded-lg border border-border bg-card p-6 shadow-sm">
               <div className="grid gap-6">
-                
                 <div className="rounded-lg border border-border bg-card/50 p-6 min-w-xl">
                   <h2 className="text-lg font-semibold mb-4">Sankey Chart</h2>
                   <Sankey
@@ -136,10 +137,14 @@ export default function DashboardPage() {
                     link={{ stroke: "#4ade80", strokeOpacity: 0.5 }}
                     node={<SankeyNode />}
                   >
-                    <Tooltip 
-                      contentStyle={{ backgroundColor: 'var(--popover)', borderColor: 'var(--border)', color: 'var(--popover-foreground)' }}
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: "var(--popover)",
+                        borderColor: "var(--border)",
+                        color: "var(--popover-foreground)",
+                      }}
                       itemStyle={{
-                        color: 'var(--popover-foreground)' 
+                        color: "var(--popover-foreground)",
                       }}
                     />
                   </Sankey>
