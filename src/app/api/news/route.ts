@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 export async function GET() {
   if (!process.env.PPLX_API_KEY) {
     return NextResponse.json(
-      { error: "Missing PPLX_API_KEY" }, 
-      { status: 500 }
+      { error: "Missing PPLX_API_KEY" },
+      { status: 500 },
     );
   }
 
@@ -44,12 +44,16 @@ export async function GET() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "sonar-pro", 
+        model: "sonar-pro",
         messages: [
-          { role: "system", content: "You are a precise financial news aggregator returning strict JSON." },
-          { role: "user", content: prompt }
+          {
+            role: "system",
+            content:
+              "You are a precise financial news aggregator returning strict JSON.",
+          },
+          { role: "user", content: prompt },
         ],
-        temperature: 0.1, 
+        temperature: 0.1,
       }),
     });
 
@@ -59,19 +63,21 @@ export async function GET() {
 
     const data = await res.json();
     let content = data.choices[0]?.message?.content || "{}";
-    
+
     // Cleanup: Remove markdown if present
-    content = content.replace(/```json/g, "").replace(/```/g, "").trim();
+    content = content
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .trim();
 
     const newsData = JSON.parse(content);
 
     return NextResponse.json(newsData);
-
   } catch (error: any) {
     console.error("News Fetch Error:", error);
     return NextResponse.json(
-      { error: "Failed to fetch news", details: error.message }, 
-      { status: 500 }
+      { error: "Failed to fetch news", details: error.message },
+      { status: 500 },
     );
   }
 }

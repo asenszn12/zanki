@@ -1,7 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Loader2, Globe, MapPin, RefreshCw, TrendingUp, TrendingDown, Minus, ExternalLink } from "lucide-react";
+import {
+  Loader2,
+  Globe,
+  MapPin,
+  RefreshCw,
+  TrendingUp,
+  TrendingDown,
+  Minus,
+  ExternalLink,
+} from "lucide-react";
 
 type NewsItem = {
   title: string;
@@ -77,7 +86,7 @@ export default function NewsPage() {
               <MapPin className="w-5 h-5 text-primary" />
               <h2 className="text-xl font-semibold">Australia</h2>
             </div>
-            
+
             <div className="grid gap-4">
               {news?.australia?.map((item, i) => (
                 <NewsCard key={i} item={item} />
@@ -118,19 +127,24 @@ function NewsCard({ item }: { item: NewsItem }) {
 
   const getBorderColor = (sentiment: string) => {
     switch (sentiment.toLowerCase()) {
-      case "positive": return "border-l-green-500";
-      case "negative": return "border-l-red-500";
-      default: return "border-l-gray-500";
+      case "positive":
+        return "border-l-green-500";
+      case "negative":
+        return "border-l-red-500";
+      default:
+        return "border-l-gray-500";
     }
   };
 
   return (
-    <div className={`bg-card border border-border rounded-r-lg border-l-4 ${getBorderColor(item.sentiment)} p-5 shadow-sm hover:shadow-md transition-shadow`}>
+    <div
+      className={`bg-card border border-border rounded-r-lg border-l-4 ${getBorderColor(item.sentiment)} p-5 shadow-sm hover:shadow-md transition-shadow`}
+    >
       <div className="flex justify-between items-start gap-3">
-        <a 
-          href={item.url} 
-          target="_blank" 
-          rel="noopener noreferrer" 
+        <a
+          href={item.url}
+          target="_blank"
+          rel="noopener noreferrer"
           className="font-semibold text-foreground leading-tight hover:text-primary hover:underline group flex gap-2 items-start"
         >
           {item.title}
