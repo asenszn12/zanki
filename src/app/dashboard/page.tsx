@@ -102,7 +102,7 @@ export default function DashboardPage() {
                 <div className="flex h-[300px] flex-col items-center justify-center text-muted-foreground/40">
                   <p>No data found.</p>
                   <Link
-                    href="/entry"
+                    href="/dashboard/entry"
                     className="text-primary hover:underline mt-2"
                   >
                     Upload a statement
