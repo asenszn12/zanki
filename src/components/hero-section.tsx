@@ -2,14 +2,13 @@
 import { Logo } from "./logo";
 import Link from "next/link";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "./ui/button";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
+import { ModeToggle } from "./mode-toggle";
 
 const menuItems = [
-  { name: "Features", href: "#" },
-  { name: "Solution", href: "#" },
-  { name: "Pricing", href: "#" },
+  { name: "Features", href: "#app-feature" },
   { name: "About", href: "#" },
 ];
 
@@ -67,9 +66,10 @@ export default function HeroSection() {
                   </Button>
                   <Button asChild size="sm">
                     <Link href="/auth/signup">
-                      <span>Signup</span>
+                      <span>Sign Up</span>
                     </Link>
                   </Button>
+                  <ModeToggle />
                 </div>
               </div>
             </div>
@@ -94,14 +94,13 @@ export default function HeroSection() {
                 Expense Tracking made seamless
               </h1>
               <p className="text-muted-foreground mx-auto my-8 max-w-2xl text-xl">
-                Chart your spending patterns. Get AI-powered insights on where
-                to save. See your progress compared to last month. <br />
-                <strong>Your money, finally working for you.</strong>
+                <strong>
+                  Your money, <i>finally</i> working for you.
+                </strong>
               </p>
-
               <Button asChild size="lg">
-                <Link href="#">
-                  <span className="btn-label">Start Building</span>
+                <Link href="/dashboard">
+                  <span className="btn-label">Start tracking</span>
                 </Link>
               </Button>
             </div>
@@ -118,105 +117,19 @@ export default function HeroSection() {
                 />
                 <Image
                   className="rounded-(--radius) border shadow-xl dark:hidden"
-                  src="/card.png"
-                  alt="Tailark hero section"
+                  src="/dashboard_img.webp"
+                  alt="Dashboard Preview"
                   width={2880}
                   height={2074}
                 />
                 <Image
                   className="rounded-(--radius) hidden border shadow-xl dark:block"
-                  src="/dark-card.webp"
-                  alt="Tailark hero section"
+                  src="/dashboard_img.webp"
+                  alt="Dashboard Preview"
                   width={2880}
                   height={2074}
                 />
               </div>
-            </div>
-          </div>
-        </section>
-        <section className="dark:bg-background bg-muted/50 relative z-10 py-16">
-          <div className="m-auto max-w-5xl px-6">
-            <h2 className="text-center text-lg font-medium">
-              Your favorite companies are our partners.
-            </h2>
-            <div className="mx-auto mt-20 flex max-w-4xl flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16 sm:gap-y-12">
-              <img
-                className="h-5 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/nvidia.svg"
-                alt="Nvidia Logo"
-                height="20"
-                width="auto"
-              />
-              <img
-                className="h-4 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/column.svg"
-                alt="Column Logo"
-                height="16"
-                width="auto"
-              />
-              <img
-                className="h-4 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/github.svg"
-                alt="GitHub Logo"
-                height="16"
-                width="auto"
-              />
-              <img
-                className="h-5 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/nike.svg"
-                alt="Nike Logo"
-                height="20"
-                width="auto"
-              />
-              <img
-                className="h-4 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/laravel.svg"
-                alt="Laravel Logo"
-                height="16"
-                width="auto"
-              />
-              <img
-                className="h-7 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/lilly.svg"
-                alt="Lilly Logo"
-                height="28"
-                width="auto"
-              />
-              <img
-                className="h-5 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/lemonsqueezy.svg"
-                alt="Lemon Squeezy Logo"
-                height="20"
-                width="auto"
-              />
-              <img
-                className="h-6 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/openai.svg"
-                alt="OpenAI Logo"
-                height="24"
-                width="auto"
-              />
-              <img
-                className="h-4 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/tailwindcss.svg"
-                alt="Tailwind CSS Logo"
-                height="16"
-                width="auto"
-              />
-              <img
-                className="h-5 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/vercel.svg"
-                alt="Vercel Logo"
-                height="20"
-                width="auto"
-              />
-              <img
-                className="h-5 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/zapier.svg"
-                alt="Zapier Logo"
-                height="20"
-                width="auto"
-              />
             </div>
           </div>
         </section>
