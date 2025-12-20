@@ -3,7 +3,7 @@ import React, { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ModeToggle } from "../components/mode-toggle";
-import SignOutButton from "../components/ui/sign-out":
+import SignOutButton from "../components/ui/sign-out";
 
 type Txn = {
   id: string;
@@ -41,6 +41,9 @@ function toNum(x: string) {
 
 export default function DataEntryPage() {
   const router = useRouter();
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [pdfMsg, setPdfMsg] = useState("");
+
   const [startingBalance] = useState<number>(1000);
   const [rows, setRows] = useState<Txn[]>([
     { id: uid(), date: todayISO(), description: "", category: "", debit: "", credit: "" },
@@ -193,49 +196,6 @@ export default function DataEntryPage() {
   }
 
   return (
-    <div className="flex h-screen bg-background text-foreground">
-      <aside className="flex w-64 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground">
-        <div className="flex h-16 justify-between items-center px-6 border-b border-sidebar-border">
-          <Link
-            href="/"
-            className="text-3xl font-semibold tracking-tight text-primary"
-          >
-            Zanki
-          </Link>
-          <ModeToggle />
-        </div>
-
-        <nav className="flex flex-1 flex-col gap-2 px-4 py-6">
-          <Link
-            href="/dashboard"
-            className="rounded-md px-3 py-2 text-sm font-medium hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition"
-          >
-            Dashboard
-          </Link>
-
-          <Link
-            href="/entry"
-            className="rounded-md px-3 py-2 text-sm font-medium bg-sidebar-accent text-sidebar-accent-foreground"
-          >
-            Upload Data
-          </Link>
-
-          <Link
-            href="/chatbot"
-            className="rounded-md px-3 py-2 text-sm font-medium hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition"
-          >
-            AI Chatbot
-          </Link>
-        </nav>
-
-        <div className="border-t border-sidebar-border px-6 py-4">
-          <div className="flex justify-between items-center">
-            <div className="text-sm font-medium">Profile</div>
-            <SignOutButton />
-          </div>
-        </div>
-      </aside>
-
       <main className="flex-1 overflow-y-auto p-8">
         <h1 className="text-xl font-semibold mb-6 text-foreground">Entry</h1>
 
@@ -385,7 +345,26 @@ export default function DataEntryPage() {
             </div>
           </form>
         </div>
-      </main>
-    </div>        
+
+        <div style={{ padding: 24, maxWidth: 420 }}>
+        <h2>Upload PDF</h2>
+          <form onSubmit={handlePdfUpload}>
+            <div style={{ marginBottom: 10 }}>
+              <input
+                type="file"
+                accept="application/pdf"
+                onChange={(e) => {
+                  if (e.target.files) setPdfFile(e.target.files[0]);
+                }}
+                style={{ width: "100%", padding: 10 }}
+              />
+            </div>
+            <button type="submit" disabled={!pdfFile}>
+              Parse PDF
+            </button>
+            {pdfMsg && <p style={{ marginTop: 10 }}>{pdfMsg}</p>}
+          </form>
+        </div>
+      </main>       
   );
 }
