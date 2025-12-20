@@ -11,7 +11,7 @@ export default function Features() {
       <div className="@container mx-auto max-w-5xl px-6">
         <div className="text-center">
           <h2 className="text-balance text-4xl font-semibold lg:text-5xl">
-            Built to empower your finances
+            Built to <span className="italic">empower</span> your finances
           </h2>
           <p className="mt-4">
             Smart tools that help you visualise spending, maximise savings, and
