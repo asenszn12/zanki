@@ -59,14 +59,13 @@ export default function TipCard({ metrics }: TipCardProps) {
 
   return (
     <div className="flex items-end gap-4 mb-8">
-      {/* Mascot Image - Now Clickable */}
       <div
-        className="relative w-30 h-30 shrink-0 drop-shadow-sm cursor-pointer transition-transform hover:scale-105 active:scale-95"
+        className="relative w-40 h-40 shrink-0 drop-shadow-sm cursor-pointer transition-transform hover:scale-105 active:scale-95"
         onClick={generateTip}
         title="Click me for a new tip!"
       >
         <Image
-          src="/mula.png"
+          src="/mascot.png"
           alt="Moola the Mascot"
           fill
           className="object-contain"
@@ -75,10 +74,13 @@ export default function TipCard({ metrics }: TipCardProps) {
       </div>
 
       {/* Speech Bubble */}
-      <div className="relative flex-1 bg-card border border-border p-6 rounded-2xl rounded-bl-none shadow-sm">
-        {/* CSS Trick for the speech bubble tail */}
-        <div className="absolute -left-3 bottom-0 w-0 h-0 border-t-[15px] border-t-transparent border-r-[15px] border-r-border border-b-[0px] border-b-transparent">
-          <div className="absolute -top-[13px] left-[1px] w-0 h-0 border-t-[14px] border-t-transparent border-r-[14px] border-r-card border-b-[0px] border-b-transparent"></div>
+      <div className="relative flex-1 bg-card border border-border p-6 rounded-2xl rounded-tl-none shadow-sm mt-4">
+        
+        {/* NEW CSS Trick for TOP-LEFT speech bubble tail */}
+        {/* Outer colored triangle (the border) */}
+        <div className="absolute top-0 -left-[15px] w-0 h-0 border-r-[15px] border-r-border border-t-[0px] border-t-transparent border-b-[15px] border-b-transparent">
+             {/* Inner background color triangle (to create the hollow border effect) */}
+            <div className="absolute top-[1px] left-[1px] w-0 h-0 border-r-[14px] border-r-card border-t-[0px] border-t-transparent border-b-[14px] border-b-transparent"></div>
         </div>
 
         <div className="flex justify-between items-start gap-4">
