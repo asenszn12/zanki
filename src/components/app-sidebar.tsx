@@ -59,14 +59,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          <SidebarMenuItem>
+          {/* <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link href="/dashboard/chatbot">
                 <Bot className="mr-2" />
                 <span>AI Chatbot</span>
               </Link>
             </SidebarMenuButton>
-          </SidebarMenuItem>
+          </SidebarMenuItem> */}
           {/* <SidebarMenuItem className="mt-2">
                  <TestApiButton />
             </SidebarMenuItem> */}
