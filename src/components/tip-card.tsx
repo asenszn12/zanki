@@ -75,12 +75,8 @@ export default function TipCard({ metrics }: TipCardProps) {
 
       {/* Speech Bubble */}
       <div className="relative flex-1 bg-card border border-border p-6 rounded-2xl rounded-tl-none shadow-sm mt-4">
-        
-        {/* NEW CSS Trick for TOP-LEFT speech bubble tail */}
-        {/* Outer colored triangle (the border) */}
         <div className="absolute top-0 -left-[15px] w-0 h-0 border-r-[15px] border-r-border border-t-[0px] border-t-transparent border-b-[15px] border-b-transparent">
-             {/* Inner background color triangle (to create the hollow border effect) */}
-            <div className="absolute top-[1px] left-[1px] w-0 h-0 border-r-[14px] border-r-card border-t-[0px] border-t-transparent border-b-[14px] border-b-transparent"></div>
+          <div className="absolute top-[1px] left-[1px] w-0 h-0 border-r-[14px] border-r-card border-t-[0px] border-t-transparent border-b-[14px] border-b-transparent"></div>
         </div>
 
         <div className="flex justify-between items-start gap-4">
