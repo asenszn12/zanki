@@ -118,20 +118,6 @@ export default function HeroSection() {
                   height={800} // Approximate height
                   priority // Loads it immediately
                 />
-                <Image
-                  className="rounded-(--radius) border shadow-xl dark:hidden"
-                  src="/dashboard_img.webp"
-                  alt="Dashboard Preview"
-                  width={2880}
-                  height={2074}
-                />
-                <Image
-                  className="rounded-(--radius) hidden border shadow-xl dark:block"
-                  src="/dashboard_img.webp"
-                  alt="Dashboard Preview"
-                  width={2880}
-                  height={2074}
-                />
               </div>
             </div>
           </div>
