@@ -1,34 +1,50 @@
 import { NextResponse } from "next/server";
 
-export const revalidate = 86400; 
-
 export async function GET() {
-  if (!process.env.PPLX_API_KEY) {
-    return NextResponse.json({ error: "Missing API Key" }, { status: 500 });
-  }
+  const apiKey = process.env.PPLX_API_KEY;
+  if (!apiKey) return NextResponse.json({ error: "Missing Key" }, { status: 500 });
 
-  const prompt = `Return ONLY a valid JSON object with 4 Australia and 4 World financial news stories. JSON: {"australia": [...], "world": [...]}`;
+  const prompt = `
+    Conduct a real-time web search for the latest financial news (last 24 hours).
+    Provide two lists: Australia (4 stories) and World (4 stories).
+    Include for each: title, 1-sentence summary, sentiment (positive/neutral/negative), and a direct URL.
+    Also include a "market_summary" field for the overall global vibe.
+
+    Return ONLY strict JSON. No markdown.
+    {
+      "market_summary": "Summary...",
+      "australia": [{ "title": "...", "summary": "...", "sentiment": "...", "url": "..." }],
+      "world": [{ "title": "...", "summary": "...", "sentiment": "...", "url": "..." }]
+    }
+  `;
 
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${process.env.PPLX_API_KEY}`, {
+    const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
-      next: { revalidate: 86400 } 
+      headers: {
+        "Authorization": `Bearer ${apiKey}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: [{ role: "user", content: prompt }],
+        response_format: { type: "json_object" },
+        temperature: 0.2 // Lower for strictly structured JSON
+      })
     });
 
-    if (res.status === 429) {
-      return NextResponse.json({ error: "Rate limit hit. Cache will reset at midnight." }, { status: 429 });
+    const data = await res.json();
+    
+    // SAFE CHECK: Ensure choices[0] exists before accessing content
+    if (!data.choices?.[0]?.message?.content) {
+      throw new Error("Invalid response structure from Groq");
     }
 
-    if (!res.ok) throw new Error(`Gemini Error: ${res.status}`);
+    const content = JSON.parse(data.choices[0].message.content);
+    return NextResponse.json(content);
 
-    const data = await res.json();
-    let content = data.candidates?.[0]?.content?.parts?.map((p: any) => p.text).join("") || "{}";
-    content = content.replace(/```json/g, "").replace(/```/g, "").trim();
-
-    return NextResponse.json(JSON.parse(content));
   } catch (error: any) {
+    console.error("News Error:", error.message);
     return NextResponse.json({ error: "Failed to fetch news" }, { status: 500 });
   }
 }

@@ -16,7 +16,7 @@ type NewsItem = {
   title: string;
   summary: string;
   sentiment: "positive" | "negative" | "neutral";
-  url: string; // Added URL field
+  url: string;
 };
 
 type NewsData = {
@@ -114,8 +114,12 @@ export default function NewsPage() {
 }
 
 function NewsCard({ item }: { item: NewsItem }) {
-  const getSentimentIcon = (sentiment: string) => {
-    switch (sentiment.toLowerCase()) {
+  // 1. Defensive: Fallback for the sentiment string to prevent .toLowerCase() crash
+  const sentiment = item?.sentiment || "neutral";
+
+  const getSentimentIcon = (s: string) => {
+    // 2. Defensive: Optional chaining on string method
+    switch (s?.toLowerCase()) {
       case "positive":
         return <TrendingUp className="w-4 h-4 text-green-500" />;
       case "negative":
@@ -125,8 +129,8 @@ function NewsCard({ item }: { item: NewsItem }) {
     }
   };
 
-  const getBorderColor = (sentiment: string) => {
-    switch (sentiment.toLowerCase()) {
+  const getBorderColor = (s: string) => {
+    switch (s?.toLowerCase()) {
       case "positive":
         return "border-l-green-500";
       case "negative":
@@ -138,24 +142,24 @@ function NewsCard({ item }: { item: NewsItem }) {
 
   return (
     <div
-      className={`bg-card border border-border rounded-r-lg border-l-4 ${getBorderColor(item.sentiment)} p-5 shadow-sm hover:shadow-md transition-shadow`}
+      className={`bg-card border border-border rounded-r-lg border-l-4 ${getBorderColor(sentiment)} p-5 shadow-sm hover:shadow-md transition-shadow`}
     >
       <div className="flex justify-between items-start gap-3">
         <a
-          href={item.url}
+          href={item?.url || "#"}
           target="_blank"
           rel="noopener noreferrer"
           className="font-semibold text-foreground leading-tight hover:text-primary hover:underline group flex gap-2 items-start"
         >
-          {item.title}
+          {item?.title || "Untitled Market Story"}
           <ExternalLink className="w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity mt-1" />
         </a>
-        <div className="shrink-0 pt-1" title={`Sentiment: ${item.sentiment}`}>
-          {getSentimentIcon(item.sentiment)}
+        <div className="shrink-0 pt-1" title={`Sentiment: ${sentiment}`}>
+          {getSentimentIcon(sentiment)}
         </div>
       </div>
       <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-        {item.summary}
+        {item?.summary || "No summary available for this story."}
       </p>
     </div>
   );
