@@ -4,81 +4,71 @@ export async function POST(req: Request) {
   try {
     const { metrics } = await req.json();
 
-    // 1. Safety & Config Check
     if (!metrics || !metrics.category_summary) {
       return NextResponse.json({ tip: "Track more expenses to get tips!" });
     }
 
     if (!process.env.PPLX_API_KEY) {
-      console.error("Missing PPLX_API_KEY");
-      return NextResponse.json(
-        { error: "Server config error: Missing API Key" },
-        { status: 500 },
-      );
+      return NextResponse.json({ error: "Missing API Key" }, { status: 500 });
     }
 
-    // 2. Construct the prompt
     const topCategories = metrics.category_summary
       .slice(0, 3)
       .map((c: any) => `${c.category} ($${c.spent})`)
       .join(", ");
 
     const prompt = `
-      Act as a friendly but direct financial advisor.
-      Here is my monthly financial summary:
+      You are a professional financial analyst. Analyze this data:
       - Total Spent: $${metrics.total_spent}
       - Net Cash Flow: $${metrics.net_cash_flow}
-      - Top Expenses: ${topCategories}
+      - Top Categories: ${topCategories}
       
-      Based on this, give me exactly ONE specific, actionable "Tip of the Day" to improve my financial health. 
-      Keep it under 30 words. Be encouraging but realistic. Do not use markdown formatting and do not include references 
-      at the end of messages (i.e. do not include [1][2] etc.).
+      TASK: Provide a 3-sentence "Tip of the Day" using this exact structure:
+      1. Sentence 1 (Observation): Identify a risk in their pattern (like high "Other" spending).
+      2. Sentence 2 (Action): Give one specific instruction to fix it today.
+      3. Sentence 3 (Benefit): Explain the long-term benefit of this action.
+      
+      CONSTRAINTS: 
+      - Total length: 35-50 words. No short one-liners.
+      - Start DIRECTLY with the advice. No "Okay" or "Sure."
     `;
 
-    // 3. Prepare Payload for Perplexity
-    const payload = {
-      model: "sonar-pro",
-      messages: [
-        {
-          role: "system",
-          content: "You are a helpful financial assistant.",
-        },
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-      // Optional: limit tokens or temperature if needed
-      temperature: 0.7,
-    };
-
-    // 4. Call Perplexity API
-    const res = await fetch("https://api.perplexity.ai/chat/completions", {
+    // Switched to gemini-2.5-flash-lite for higher rate limits
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${process.env.PPLX_API_KEY}`, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.PPLX_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.85,
+          maxOutputTokens: 300, 
+        }
+      }),
     });
+
+    // FAIL-SAFE: If we hit a 429 Quota limit, return a generic helpful tip instead of crashing
+    if (res.status === 429) {
+      return NextResponse.json({ 
+        tip: "Moola's Tip: Your 'Other' category is looking a bit heavy today. Audit your recent bank statement to find hidden subscriptions you can cancel to save $20+ monthly." 
+      });
+    }
 
     if (!res.ok) {
       const errText = await res.text();
-      console.error("Perplexity API Error:", errText);
       throw new Error(`API Error ${res.status}: ${errText}`);
     }
 
     const data = await res.json();
 
-    // Perplexity follows the OpenAI response schema
-    const tip = data.choices[0]?.message?.content || "No tip generated.";
+    // Map and Join logic to ensure full sentence completion
+    const tip = data.candidates?.[0]?.content?.parts
+      ?.map((part: any) => part.text)
+      .join("") || "No tip generated.";
 
-    return NextResponse.json({ tip });
+    return NextResponse.json({ tip: tip.trim() });
+
   } catch (error: any) {
     console.error("API Route Error:", error);
-    return NextResponse.json(
-      { error: error.message || "Failed to generate tip" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

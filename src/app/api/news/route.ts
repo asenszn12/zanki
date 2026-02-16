@@ -37,42 +37,31 @@ export async function GET() {
   `;
 
   try {
-    const res = await fetch("https://api.perplexity.ai/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.PPLX_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "sonar-pro",
-        messages: [
-          {
-            role: "system",
-            content:
-              "You are a precise financial news aggregator returning strict JSON.",
-          },
-          { role: "user", content: prompt },
-        ],
-        temperature: 0.1,
-      }),
-    });
+  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.PPLX_API_KEY}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      // This tool enables live web search for financial news
+    }),
+  });
 
-    if (!res.ok) {
-      throw new Error(`Perplexity API Error: ${res.status}`);
-    }
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`Gemini News Error ${res.status}: ${errText}`);
+  }
 
-    const data = await res.json();
-    let content = data.choices[0]?.message?.content || "{}";
+  const data = await res.json();
+  let content = data.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
 
-    // Cleanup: Remove markdown if present
-    content = content
-      .replace(/```json/g, "")
-      .replace(/```/g, "")
-      .trim();
+  // Cleanup: Gemini sometimes wraps JSON in markdown blocks
+  content = content.replace(/```json/g, "").replace(/```/g, "").trim();
 
-    const newsData = JSON.parse(content);
+  const newsData = JSON.parse(content);
+  return NextResponse.json(newsData);
 
-    return NextResponse.json(newsData);
   } catch (error: any) {
     console.error("News Fetch Error:", error);
     return NextResponse.json(
